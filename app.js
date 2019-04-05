@@ -11,11 +11,13 @@ GAME RULES:
 
 /*eslint-env browser*/
 
-var scores, roundScore, activePlayer;
+var scores, roundScore, activePlayer, dice, previousDice;
 var diceDOM = document.querySelector('.dice');
 
 
 init();
+
+
 
 function init () {
     scores = [0, 0];
@@ -41,6 +43,8 @@ function init () {
 function nextPlayer() {
     "use strict";
     roundScore = 0;
+    previousDice = 0;
+    dice = 0;
     document.querySelector('#current-' + activePlayer).textContent = roundScore;
     document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
     activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
@@ -53,14 +57,19 @@ document.querySelector('.btn-roll').addEventListener('click', function btn() {
 
     // 1. Random Number
     "use strict";
-    var dice = Math.floor(Math.random() * 6) + 1;
-    
+    previousDice = dice;
+    dice = Math.floor(Math.random() * 6) + 1;
     // 2. Display the result
     diceDOM.style.display = 'block';
     diceDOM.src = 'dice-' + dice + '.png';
     
+    if (dice === 6 && dice === previousDice) {
+        scores[activePlayer] = 0;
+        document.querySelector("#score-" + activePlayer).textContent = scores[activePlayer];
+        nextPlayer();
+    }
     // 3. Update round score only if its not a 1
-    if (dice > 1) {
+    else if (dice > 1) {
         // Add score
         roundScore += dice;
         document.querySelector('#current-' + activePlayer).textContent = roundScore;
