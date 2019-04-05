@@ -19,7 +19,8 @@ init();
 
 
 
-function init () {
+function init() {
+    "use strict";
     scores = [0, 0];
     roundScore = 0;
     activePlayer = 0;
@@ -67,9 +68,7 @@ document.querySelector('.btn-roll').addEventListener('click', function btn() {
         scores[activePlayer] = 0;
         document.querySelector("#score-" + activePlayer).textContent = scores[activePlayer];
         nextPlayer();
-    }
-    // 3. Update round score only if its not a 1
-    else if (dice > 1) {
+    } else if (dice > 1) {
         // Add score
         roundScore += dice;
         document.querySelector('#current-' + activePlayer).textContent = roundScore;
