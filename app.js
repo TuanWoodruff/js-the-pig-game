@@ -34,14 +34,21 @@ document.querySelector('.btn-roll').addEventListener('click', function btn() {
     
     
     // 3. Update round score only if its not a 1
+    if (dice > 1) {
+        // Add score
+        roundScore += dice;
+        document.querySelector('#current-' + activePlayer).textContent = roundScore;
     
+    } else {
+        // Next Player
+        roundScore = 0;
+        
+    }
     
 });
 
 
-//from my branch
 
-//from Git
 
 
 
