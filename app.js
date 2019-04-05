@@ -49,16 +49,10 @@ document.querySelector('.btn-roll').addEventListener('click', function btn() {
 
 
 
-//Update on personal Mac
 
 
 
-
-
-
-
-
-
+//hasjdaskdhasjkdhaskdhaskjdhas
 
 
 
