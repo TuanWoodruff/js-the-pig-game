@@ -11,7 +11,7 @@ GAME RULES:
 
 /*eslint-env browser*/
 
-var scores, roundScore, activePlayer, dice, previousDice;
+var scores, roundScore, activePlayer, dice, previousDice, startingScore;
 var diceDOM = document.querySelector('.dice');
 
 
@@ -39,6 +39,10 @@ function init() {
     document.querySelector('.player-0-panel').classList.remove('active');
     document.querySelector('.player-1-panel').classList.remove('active');
     document.querySelector('.player-0-panel').classList.add('active');
+    startingScore = prompt("Please enter the winning score! Default winning score is 100");
+    if (startingScore < 1) {
+        startingScore = 100;
+    }
 }
 
 function nextPlayer() {
@@ -64,11 +68,11 @@ document.querySelector('.btn-roll').addEventListener('click', function btn() {
     diceDOM.style.display = 'block';
     diceDOM.src = 'dice-' + dice + '.png';
     
-    if (dice === 6 && dice === previousDice) {
+    if (dice === 6 && previousDice === 6) {
         scores[activePlayer] = 0;
         document.querySelector("#score-" + activePlayer).textContent = scores[activePlayer];
         nextPlayer();
-    } else if (dice > 1) {
+    } else if (dice !== 1) {
         // Add score
         roundScore += dice;
         document.querySelector('#current-' + activePlayer).textContent = roundScore;
@@ -91,7 +95,7 @@ document.querySelector('.btn-hold').addEventListener('click', function () {
     document.querySelector("#score-" + activePlayer).textContent = scores[activePlayer];
     
     // Check if player won the game
-    if (scores[activePlayer] >= 10) {
+    if (scores[activePlayer] >= startingScore) {
         document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
         diceDOM.style.display = 'none';
         document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
@@ -105,27 +109,6 @@ document.querySelector('.btn-hold').addEventListener('click', function () {
 });
 
 document.querySelector('.btn-new').addEventListener('click', init);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
